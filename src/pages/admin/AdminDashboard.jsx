@@ -144,7 +144,7 @@ function Inner() {
     <AdminLayout>
       <div className="">
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-800">Dashboard Overview</h1>
+          <h1 className="text-2xl font-bold text-gray-800">Dashboard </h1>
           
         </div>
         

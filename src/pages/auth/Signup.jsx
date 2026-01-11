@@ -30,7 +30,7 @@ export default function Signup() {
     if (Object.keys(v).length) return;
     const res = await dispatch(signupThunk(form));
     if (res.meta.requestStatus === "fulfilled") {
-      navigate(ROUTES.STORES);
+      navigate(ROUTES.LOGIN, { state: { from: 'signup', email: form.email } });
     }
   };
 

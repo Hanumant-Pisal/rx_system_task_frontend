@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaEye, FaEyeSlash, FaGithub, FaTwitter, FaLinkedin, FaInstagram, FaFacebook } from "react-icons/fa";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import AuthLayout from "../../layouts/AuthLayout";
@@ -15,6 +15,16 @@ export default function Login() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const [successMessage, setSuccessMessage] = useState("");
+
+
+  useEffect(() => {
+    if (location.state?.from === 'signup') {
+      setSuccessMessage(`Account created successfully!`);
+      
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state]);
 
   const submit = async (e) => {
     e.preventDefault();
@@ -64,7 +74,7 @@ export default function Login() {
               <FaTwitter className="h-6 w-6" />
             </a>
           </div>
-          <p className="text-blue-200 text-sm"> 2026 Your Brand. All rights reserved.</p>
+          <p className="text-blue-200 text-sm"> 2026 Review System. All rights reserved.</p>
         </div>
       </div>
 
@@ -79,6 +89,11 @@ export default function Login() {
                 create a new account
               </Link>
             </p>
+            {successMessage && (
+              <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-md text-green-700">
+                {successMessage}
+              </div>
+            )}
           </div>
 
           <form onSubmit={submit} className="space-y-6">
