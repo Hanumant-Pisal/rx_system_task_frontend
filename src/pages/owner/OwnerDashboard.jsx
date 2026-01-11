@@ -19,7 +19,6 @@ function OwnerDashboardInner() {
       const response = await api.get("/stores/owner/me/stores");
       console.log('API Response:', response);
       
-      // The stores array is in response.data.data
       const storesData = response.data.data || [];
       console.log('Processed stores data:', storesData);
       
@@ -69,7 +68,6 @@ function OwnerDashboardInner() {
       
       console.log('Raw API Response:', JSON.stringify(response, null, 2));
       
-      // Map the response to match the table columns
       const ratingsData = response.data?.items?.map(item => ({
         ...item,
         user: {
@@ -99,21 +97,18 @@ function OwnerDashboardInner() {
     }
   };
 
-  // Load stores only once on component mount
   useEffect(() => {
     const loadInitialData = async () => {
       setLoading(true);
       const loadedStores = await loadStores();
       if (loadedStores.length > 0 && !selectedStore) {
-        // Only set the first store as selected if none is selected
         setSelectedStore(loadedStores[0]);
       }
       setLoading(false);
     };
     loadInitialData();
-  }, []); // Empty dependency array to run only once on mount
+  }, []); 
 
-  // Load ratings when selectedStore or search/page changes
   useEffect(() => {
     if (selectedStore?._id) {
       loadRatings(selectedStore._id);
@@ -263,11 +258,11 @@ function OwnerDashboardInner() {
           </div>
         </div>
 
-        {/* Main Content */}
+        
         <div className="flex-1 min-w-0 space-y-6">
         {selectedStore ? (
           <>
-            {/* Stats Cards */}
+            
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {stats.map((stat) => (
                 <div key={stat.id} className={`bg-gradient-to-br ${stat.color} border rounded-2xl p-6 shadow-sm`}>
@@ -285,7 +280,7 @@ function OwnerDashboardInner() {
               ))}
             </div>
 
-            {/* Ratings Table */}
+           
             <div className="bg-white rounded-2xl shadow-sm border overflow-hidden">
               <div className="p-6 pb-4">
                 <div className="flex items-center justify-between mb-6">
