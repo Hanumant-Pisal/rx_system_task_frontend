@@ -72,14 +72,14 @@ function Inner() {
         label: 'Count',
         data: [stats.users || 0, stats.stores || 0, stats.ratings || 0],
         backgroundColor: [
-          'rgba(79, 70, 229, 0.8)', 
-          'rgba(16, 185, 129, 0.8)', 
-          'rgba(245, 158, 11, 0.8)', 
+          'rgba(59, 130, 246, 0.8)',  
+          'rgba(139, 92, 246, 0.8)',  
+          'rgba(236, 72, 153, 0.8)',  
         ],
         borderColor: [
-          'rgba(79, 70, 229, 1)',
-          'rgba(16, 185, 129, 1)',
-          'rgba(245, 158, 11, 1)',
+          'rgba(59, 130, 246, 1)',   
+          'rgba(139, 92, 246, 1)',   
+          'rgba(236, 72, 153, 1)',   
         ],
         borderWidth: 1,
         borderRadius: 4,
@@ -144,7 +144,7 @@ function Inner() {
     <AdminLayout>
       <div className="">
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-800">Dashboard Overview</h1>
+          <h1 className="text-2xl font-bold text-gray-800">Dashboard </h1>
           
         </div>
         
@@ -211,14 +211,14 @@ function Inner() {
                     datasets: [{
                       data: [stats.users || 0, stats.stores || 0, stats.ratings || 0],
                       backgroundColor: [
-                        'rgba(79, 70, 229, 0.8)',
-                        'rgba(16, 185, 129, 0.8)',
-                        'rgba(245, 158, 11, 0.8)'
+                        'rgba(59, 130, 246, 0.8)',  
+                        'rgba(139, 92, 246, 0.8)',  
+                        'rgba(236, 72, 153, 0.8)'   
                       ],
                       borderColor: [
-                        'rgba(79, 70, 229, 1)',
-                        'rgba(16, 185, 129, 1)',
-                        'rgba(245, 158, 11, 1)'
+                        'rgba(59, 130, 246, 1)',   
+                        'rgba(139, 92, 246, 1)',   
+                        'rgba(236, 72, 153, 1)'    
                       ],
                       borderWidth: 1,
                       hoverOffset: 4

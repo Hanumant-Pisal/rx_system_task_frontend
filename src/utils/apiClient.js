@@ -1,13 +1,9 @@
- 
 import axios from "axios";
-
-console.log('API Base URL:', import.meta.env.VITE_API_URL);
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
-  withCredentials: true, 
+  withCredentials: true,
 });
-
 
 api.interceptors.response.use(
   (res) => res,
@@ -25,30 +21,16 @@ api.interceptors.response.use(
         await api.post("/auth/refresh");
         return api(original);
       } catch (_) {
-      
+        // Handle refresh token failure
       }
     }
     return Promise.reject(error);
   }
 );
 
-
 api.interceptors.request.use(
-  (config) => {
-    console.log('Request:', {
-      url: config.url,
-      method: config.method,
-      baseURL: config.baseURL,
-      headers: config.headers,
-      params: config.params,
-      data: config.data
-    });
-    return config;
-  },
-  (error) => {
-    console.error('Request Error:', error);
-    return Promise.reject(error);
-  }
+  (config) => config,
+  (error) => Promise.reject(error)
 );
 
 export default api;

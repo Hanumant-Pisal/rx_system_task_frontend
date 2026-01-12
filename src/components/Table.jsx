@@ -18,30 +18,23 @@ export default function Table({
       let aValue = a[sortConfig.key];
       let bValue = b[sortConfig.key];
 
-      
       if (aValue == null) return sortConfig.direction === 'asc' ? -1 : 1;
       if (bValue == null) return sortConfig.direction === 'asc' ? 1 : -1;
 
-      
       aValue = String(aValue).toLowerCase();
       bValue = String(bValue).toLowerCase();
 
-      if (aValue < bValue) {
-        return sortConfig.direction === 'asc' ? -1 : 1;
-      }
-      if (aValue > bValue) {
-        return sortConfig.direction === 'asc' ? 1 : -1;
-      }
+      if (aValue < bValue) return sortConfig.direction === 'asc' ? -1 : 1;
+      if (aValue > bValue) return sortConfig.direction === 'asc' ? 1 : -1;
       return 0;
     });
   }, [data, sortConfig]);
 
   const requestSort = (key) => {
-    let direction = 'asc';
-    if (sortConfig.key === key && sortConfig.direction === 'asc') {
-      direction = 'desc';
-    }
-    setSortConfig({ key, direction });
+    setSortConfig(prev => ({
+      key,
+      direction: prev.key === key && prev.direction === 'asc' ? 'desc' : 'asc'
+    }));
   };
 
   const getSortIndicator = (key) => {
@@ -50,39 +43,45 @@ export default function Table({
   };
 
   return (
-    <div className="overflow-x-auto border rounded-xl bg-white">
-      <table className="min-w-full text-sm">
-        <thead className="bg-gray-100">
+    <div className="overflow-x-auto">
+      <table className="min-w-full divide-y divide-gray-200">
+        <thead className="bg-gray-50">
           <tr>
-            {columns.map((c) => (
-              <th 
-                key={c.key} 
-                className={`text-left p-3 font-medium ${c.sortable ? 'cursor-pointer hover:bg-gray-200' : ''}`}
-                onClick={() => c.sortable !== false && requestSort(c.key)}
+            {columns.map(({ key, title, sortable }) => (
+              <th
+                key={key}
+                scope="col"
+                className={`px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ${
+                  sortable ? 'cursor-pointer hover:bg-gray-100' : ''
+                }`}
+                onClick={() => sortable && requestSort(key)}
               >
-                {c.title}
-                {c.sortable !== false && getSortIndicator(c.key)}
+                <div className="flex items-center">
+                  {title}
+                  {sortable && getSortIndicator(key)}
+                </div>
               </th>
             ))}
           </tr>
         </thead>
-        <tbody>
-          {sortedData.length === 0 && (
+        <tbody className="bg-white divide-y divide-gray-200">
+          {sortedData.length > 0 ? (
+            sortedData.map((row, rowIndex) => (
+              <tr key={rowIndex} className="hover:bg-gray-50">
+                {columns.map(({ key, render }) => (
+                  <td key={key} className="px-6 py-4 whitespace-nowrap">
+                    {render ? render(row) : row[key]}
+                  </td>
+                ))}
+              </tr>
+            ))
+          ) : (
             <tr>
-              <td className="p-3" colSpan={columns.length}>
-                No data
+              <td colSpan={columns.length} className="px-6 py-4 text-center text-gray-500">
+                No data available
               </td>
             </tr>
           )}
-          {sortedData.map((row, idx) => (
-            <tr key={idx} className="border-t">
-              {columns.map((c) => (
-                <td key={c.key} className="p-3">
-                  {c.render ? c.render(row) : row[c.key]}
-                </td>
-              ))}
-            </tr>
-          ))}
         </tbody>
       </table>
     </div>
