@@ -3,8 +3,8 @@ import { useAppDispatch, useAppSelector } from "../app/hooks";
 import Button from "./Button";
 import { logoutThunk } from "../features/auth/authThunks";
 import { ROUTES } from "../utils/constants";
-import { useState } from "react";
-import { FiUser, FiChevronDown, FiLogOut, FiKey } from "react-icons/fi";
+import { useState, useEffect } from "react";
+import { FiUser, FiChevronDown, FiLogOut, FiKey, FiMenu, FiX } from "react-icons/fi";
 
 export default function Navbar() {
   const { user } = useAppSelector((s) => s.auth);
@@ -17,10 +17,20 @@ export default function Navbar() {
   };
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
-    <div className="w-full bg-white shadow-sm">
-      <div className=" flex items-center justify-between p-4">
+    <div className="w-full bg-white">
+      <div className="flex items-center justify-between p-4">
         {!user || user.role !== 'admin' ? (
           <Link 
             to={user?.role === 'owner' ? ROUTES.OWNER_DASH : ROUTES.HOME}
@@ -96,6 +106,7 @@ export default function Navbar() {
           )}
         </div>
       </div>
+      
     </div>
   );
 }

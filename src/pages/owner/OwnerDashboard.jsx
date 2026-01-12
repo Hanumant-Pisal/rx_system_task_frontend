@@ -179,9 +179,9 @@ function OwnerDashboardInner() {
 
   return (
     <OwnerLayout>
-      <div className="flex flex-row gap-4 w-full max-w-7xl mx-auto px-2">
-        {/* Sidebar with Stores */}
-        <div className="w-80 flex-shrink-0 space-y-6">
+      <div className="flex flex-col lg:flex-row gap-4 w-full max-w-7xl mx-auto px-2 sm:px-4">
+        
+        <div className="w-full lg:w-80 flex-shrink-0 space-y-4 sm:space-y-6">
           <div className="bg-white rounded-2xl shadow-sm border p-6">
             <div className="relative mb-4">
               <input
@@ -263,7 +263,7 @@ function OwnerDashboardInner() {
         {selectedStore ? (
           <>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {stats.map((stat) => (
                 <div key={stat.id} className={`bg-gradient-to-br ${stat.color} border rounded-2xl p-6 shadow-sm`}>
                   <div className="flex items-center justify-between">
@@ -282,15 +282,15 @@ function OwnerDashboardInner() {
 
            
             <div className="bg-white rounded-2xl shadow-sm border overflow-hidden">
-              <div className="p-6 pb-4">
-                <div className="flex items-center justify-between mb-6">
+              <div className="p-4 sm:p-6 sm:pb-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                   <h2 className="text-lg font-semibold text-gray-900">
                     Recent Ratings for {selectedStore.name}
                   </h2>
-                  <div className="relative">
+                  <div className="relative w-full sm:w-auto">
                     <input
                       type="text"
-                      className="w-64 pl-10 pr-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full sm:w-64 pl-10 pr-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       placeholder="Search raters..."
                       value={search}
                       onChange={(e) => setSearch(e.target.value)}
@@ -310,13 +310,15 @@ function OwnerDashboardInner() {
                     </svg>
                   </div>
                 </div>
-                <div className="overflow-x-auto">
+                <div className="overflow-x-auto -mx-4 sm:mx-0">
                   {loading ? (
                     <div className="flex justify-center items-center p-8">
                       <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
                     </div>
                   ) : (
-                    <Table columns={cols} data={raters} />
+                    <div className="min-w-max sm:min-w-0 w-full">
+                      <Table columns={cols} data={raters} />
+                    </div>
                   )}
                 </div>
               </div>
