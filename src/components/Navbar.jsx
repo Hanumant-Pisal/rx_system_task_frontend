@@ -19,14 +19,14 @@ export default function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   return (
-    <div className="w-full bg-white border-b">
+    <div className="w-full bg-white shadow-sm">
       <div className=" flex items-center justify-between p-4">
         {!user || user.role !== 'admin' ? (
           <Link 
             to={user?.role === 'owner' ? ROUTES.OWNER_DASH : ROUTES.HOME}
             className="text-xl font-bold text-blue-600 hover:text-blue-700 transition-colors ml-6"
           >
-            Ratings Platform
+            Review System
           </Link>
         ) : (
           <div></div> 
@@ -43,7 +43,7 @@ export default function Navbar() {
                     <FiUser className="text-blue-600" size={16} />
                   </div>
                   <span className="text-sm font-medium text-gray-700 hidden sm:inline">
-                    {user.name?.split(' ')[0] || 'Profile'}
+                    {user.name ? (user.name.length > 8 ? `${user.name.substring(0, 8)}...` : user.name) : 'Profile'}
                   </span>
                   <FiChevronDown className={`text-gray-500 transition-transform ${isDropdownOpen ? 'transform rotate-180' : ''}`} size={16} />
                 </button>

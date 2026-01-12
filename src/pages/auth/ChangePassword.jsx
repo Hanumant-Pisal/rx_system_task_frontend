@@ -32,6 +32,12 @@ export default function ChangePassword() {
   return (
     <UserLayout>
       <div className="max-w-md mx-auto bg-white border rounded-2xl p-6">
+        <button 
+          onClick={() => window.history.back()} 
+          className="mb-4 text-blue-600 hover:underline flex items-center"
+        >
+          ← Back
+        </button>
         <h1 className="text-xl font-semibold mb-4">Change Password</h1>
         <form onSubmit={submit}>
           <Input label="Current Password" type="password" value={form.currentPassword} onChange={(e) => setForm({ ...form, currentPassword: e.target.value })} />
